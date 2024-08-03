@@ -1,0 +1,71 @@
+{
+  "kind": "collectionType",
+  "collectionName": "educations",
+  "info": {
+    "singularName": "education",
+    "pluralName": "educations",
+    "displayName": "education",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "institute_name": {
+      "type": "string"
+    },
+    "branch": {
+      "type": "string"
+    },
+    "stream": {
+      "type": "string"
+    },
+    "percantage": {
+      "type": "decimal"
+    },
+    "grade": {
+      "type": "enumeration",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F"
+      ]
+    },
+    "start": {
+      "type": "date"
+    },
+    "end": {
+      "type": "date"
+    },
+    "achievements": {
+      "type": "text"
+    },
+    "address": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::adress.adress",
+      "inversedBy": "educations"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "educations"
+    },
+    "board_of_education": {
+      "type": "enumeration",
+      "enum": [
+        "CBSE",
+        "ICSE",
+        "STATE"
+      ]
+    },
+    "class": {
+      "type": "string"
+    }
+  }
+}

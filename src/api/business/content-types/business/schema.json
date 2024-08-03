@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "businesses",
+  "info": {
+    "singularName": "business",
+    "pluralName": "businesses",
+    "displayName": "business"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "subdomain": {
+      "type": "string"
+    },
+    "from": {
+      "type": "date"
+    },
+    "to": {
+      "type": "date"
+    },
+    "specilization": {
+      "type": "string"
+    },
+    "adresses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::adress.adress",
+      "mappedBy": "business"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "businesses"
+    }
+  }
+}
