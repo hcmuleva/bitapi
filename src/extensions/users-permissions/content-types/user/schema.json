@@ -71,9 +71,6 @@
     "last_name": {
       "type": "string"
     },
-    "mobile_no": {
-      "type": "integer"
-    },
     "dob": {
       "type": "date"
     },
@@ -90,12 +87,6 @@
     "languages": {
       "type": "json"
     },
-    "experiences": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::experience.experience",
-      "inversedBy": "users"
-    },
     "posts": {
       "type": "relation",
       "relation": "oneToMany",
@@ -108,24 +99,6 @@
       "target": "api::category.category",
       "inversedBy": "users"
     },
-    "profiles": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::profile.profile",
-      "mappedBy": "user"
-    },
-    "educations": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::education.education",
-      "mappedBy": "user"
-    },
-    "businesses": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::business.business",
-      "mappedBy": "users"
-    },
     "userrole": {
       "type": "enumeration",
       "enum": [
@@ -133,11 +106,122 @@
         "GARDIAN"
       ]
     },
-    "adresses": {
+    "profession": {
+      "type": "string"
+    },
+    "specilization": {
+      "type": "string"
+    },
+    "orgrole": {
+      "type": "string"
+    },
+    "orgname": {
+      "type": "string"
+    },
+    "semester": {
+      "type": "string"
+    },
+    "addresses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::address.address",
+      "mappedBy": "users_permissions_user"
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "hostel_name": {
+      "type": "string"
+    },
+    "room_number": {
+      "type": "string"
+    },
+    "degree": {
+      "type": "enumeration",
+      "enum": [
+        "BE/BTECH",
+        "ME/MTECH",
+        "MSC",
+        "BSC",
+        "MBA/PGDM",
+        "BPHARMA",
+        "MPHARMA",
+        "BBALLB",
+        "BDES",
+        "BALLB",
+        "PHD",
+        "PGDIPLOMA",
+        "MPHIL"
+      ]
+    },
+    "campus": {
+      "type": "enumeration",
+      "enum": [
+        "GOA",
+        "HYDRABAD",
+        "MUMBAI",
+        "PILANI",
+        "DUBAI"
+      ]
+    },
+    "branch": {
+      "type": "string"
+    },
+    "mobile": {
+      "type": "integer"
+    },
+    "joblocation": {
+      "type": "string"
+    },
+    "isNoMobile": {
+      "type": "boolean"
+    },
+    "isNoAddress": {
+      "type": "boolean"
+    },
+    "isNoEmail": {
+      "type": "boolean"
+    },
+    "myideas": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::adress.adress",
-      "mappedBy": "users"
+      "target": "api::myidea.myidea",
+      "mappedBy": "participants"
+    },
+    "travels": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::travel.travel",
+      "mappedBy": "user"
+    },
+    "travelers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::travel.travel",
+      "mappedBy": "participants"
+    },
+    "mytravels": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::mytravel.mytravel",
+      "mappedBy": "traveledby"
+    },
+    "passenger": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::mytravel.mytravel",
+      "mappedBy": "participants"
+    },
+    "bloodgroup": {
+      "type": "string"
     }
   }
 }

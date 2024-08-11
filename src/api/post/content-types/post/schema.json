@@ -4,7 +4,8 @@
   "info": {
     "singularName": "post",
     "pluralName": "posts",
-    "displayName": "post"
+    "displayName": "post",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -34,6 +35,24 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
+      "inversedBy": "posts"
+    },
+    "childpost": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::post.post",
+      "inversedBy": "parentposts"
+    },
+    "parentposts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post",
+      "mappedBy": "childpost"
+    },
+    "myidea": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::myidea.myidea",
       "inversedBy": "posts"
     }
   }

@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "travels",
+  "info": {
+    "singularName": "travel",
+    "pluralName": "travels",
+    "displayName": "travel",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "from": {
+      "type": "string"
+    },
+    "to": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "travels"
+    },
+    "participants": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "travelers"
+    },
+    "startdate": {
+      "type": "datetime"
+    },
+    "return": {
+      "type": "datetime"
+    }
+  }
+}

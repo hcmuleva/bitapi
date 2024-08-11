@@ -772,16 +772,10 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     first_name: Attribute.String;
     last_name: Attribute.String;
-    mobile_no: Attribute.Integer;
     dob: Attribute.Date;
     gender: Attribute.Enumeration<['MALE', 'FEMALE']>;
     hobbies: Attribute.JSON;
     languages: Attribute.JSON;
-    experiences: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'manyToMany',
-      'api::experience.experience'
-    >;
     posts: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
@@ -792,27 +786,72 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToMany',
       'api::category.category'
     >;
-    profiles: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::profile.profile'
-    >;
-    educations: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::education.education'
-    >;
-    businesses: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'manyToMany',
-      'api::business.business'
-    >;
     userrole: Attribute.Enumeration<['STUDENT', 'GARDIAN']>;
-    adresses: Attribute.Relation<
+    profession: Attribute.String;
+    specilization: Attribute.String;
+    orgrole: Attribute.String;
+    orgname: Attribute.String;
+    semester: Attribute.String;
+    addresses: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::address.address'
+    >;
+    photo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    hostel_name: Attribute.String;
+    room_number: Attribute.String;
+    degree: Attribute.Enumeration<
+      [
+        'BE/BTECH',
+        'ME/MTECH',
+        'MSC',
+        'BSC',
+        'MBA/PGDM',
+        'BPHARMA',
+        'MPHARMA',
+        'BBALLB',
+        'BDES',
+        'BALLB',
+        'PHD',
+        'PGDIPLOMA',
+        'MPHIL'
+      ]
+    >;
+    campus: Attribute.Enumeration<
+      ['GOA', 'HYDRABAD', 'MUMBAI', 'PILANI', 'DUBAI']
+    >;
+    branch: Attribute.String;
+    mobile: Attribute.Integer;
+    joblocation: Attribute.String;
+    isNoMobile: Attribute.Boolean;
+    isNoAddress: Attribute.Boolean;
+    isNoEmail: Attribute.Boolean;
+    myideas: Attribute.Relation<
       'plugin::users-permissions.user',
       'manyToMany',
-      'api::adress.adress'
+      'api::myidea.myidea'
     >;
+    travels: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::travel.travel'
+    >;
+    travelers: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'api::travel.travel'
+    >;
+    mytravels: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::mytravel.mytravel'
+    >;
+    passenger: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'api::mytravel.mytravel'
+    >;
+    bloodgroup: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -830,122 +869,42 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiAdressAdress extends Schema.CollectionType {
-  collectionName: 'adresses';
+export interface ApiAddressAddress extends Schema.CollectionType {
+  collectionName: 'addresses';
   info: {
-    singularName: 'adress';
-    pluralName: 'adresses';
-    displayName: 'adress';
+    singularName: 'address';
+    pluralName: 'addresses';
+    displayName: 'address';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    address_type: Attribute.Enumeration<
-      [
-        'CURRENT',
-        'NATIVE',
-        'WORKPLACE',
-        'EDUCATION',
-        'HOSTEL',
-        'BUSINESS',
-        'INSTITUTE',
-        'HOME'
-      ]
-    >;
     house_name: Attribute.String;
     tehsil: Attribute.String;
     district: Attribute.String;
     city: Attribute.String;
     state: Attribute.String;
     country: Attribute.String;
-    pincode: Attribute.Integer;
-    users: Attribute.Relation<
-      'api::adress.adress',
-      'manyToMany',
-      'plugin::users-permissions.user'
-    >;
-    experiences: Attribute.Relation<
-      'api::adress.adress',
-      'manyToMany',
-      'api::experience.experience'
-    >;
-    educations: Attribute.Relation<
-      'api::adress.adress',
-      'oneToMany',
-      'api::education.education'
-    >;
-    business: Attribute.Relation<
-      'api::adress.adress',
-      'manyToOne',
-      'api::business.business'
-    >;
     village: Attribute.String;
-    addressvisible: Attribute.Enumeration<['PARTIALLY', 'FULLY', 'NO']>;
-    profile: Attribute.Relation<
-      'api::adress.adress',
+    pincode: Attribute.Integer;
+    users_permissions_user: Attribute.Relation<
+      'api::address.address',
       'manyToOne',
-      'api::profile.profile'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::adress.adress',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::adress.adress',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiBusinessBusiness extends Schema.CollectionType {
-  collectionName: 'businesses';
-  info: {
-    singularName: 'business';
-    pluralName: 'businesses';
-    displayName: 'business';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    role: Attribute.String;
-    type: Attribute.String;
-    domain: Attribute.String;
-    subdomain: Attribute.String;
-    from: Attribute.Date;
-    to: Attribute.Date;
-    specilization: Attribute.String;
-    adresses: Attribute.Relation<
-      'api::business.business',
-      'oneToMany',
-      'api::adress.adress'
-    >;
-    users: Attribute.Relation<
-      'api::business.business',
-      'manyToMany',
       'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::business.business',
+      'api::address.address',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::business.business',
+      'api::address.address',
       'oneToOne',
       'admin::user'
     > &
@@ -1006,49 +965,48 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
 }
 
-export interface ApiEducationEducation extends Schema.CollectionType {
-  collectionName: 'educations';
+export interface ApiMyideaMyidea extends Schema.CollectionType {
+  collectionName: 'myideas';
   info: {
-    singularName: 'education';
-    pluralName: 'educations';
-    displayName: 'education';
-    description: '';
+    singularName: 'myidea';
+    pluralName: 'myideas';
+    displayName: 'myidea';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    institute_name: Attribute.String;
-    branch: Attribute.String;
-    stream: Attribute.String;
-    percantage: Attribute.Decimal;
-    grade: Attribute.Enumeration<['A', 'B', 'C', 'D', 'E', 'F']>;
-    start: Attribute.Date;
-    end: Attribute.Date;
-    achievements: Attribute.Text;
-    address: Attribute.Relation<
-      'api::education.education',
-      'manyToOne',
-      'api::adress.adress'
-    >;
-    user: Attribute.Relation<
-      'api::education.education',
+    name: Attribute.String;
+    description: Attribute.Blocks;
+    youtubeurl: Attribute.String;
+    images: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    category: Attribute.String;
+    postedby: Attribute.Relation<
+      'api::myidea.myidea',
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    board_of_education: Attribute.Enumeration<['CBSE', 'ICSE', 'STATE']>;
-    class: Attribute.String;
+    participants: Attribute.Relation<
+      'api::myidea.myidea',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    posts: Attribute.Relation<
+      'api::myidea.myidea',
+      'oneToMany',
+      'api::post.post'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::education.education',
+      'api::myidea.myidea',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::education.education',
+      'api::myidea.myidea',
       'oneToOne',
       'admin::user'
     > &
@@ -1056,45 +1014,85 @@ export interface ApiEducationEducation extends Schema.CollectionType {
   };
 }
 
-export interface ApiExperienceExperience extends Schema.CollectionType {
-  collectionName: 'experiences';
+export interface ApiMytravelMytravel extends Schema.CollectionType {
+  collectionName: 'mytravels';
   info: {
-    singularName: 'experience';
-    pluralName: 'experiences';
-    displayName: 'experience';
+    singularName: 'mytravel';
+    pluralName: 'mytravels';
+    displayName: 'mytravel';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    type: Attribute.String;
-    from: Attribute.Date;
-    end: Attribute.Date;
-    domain: Attribute.JSON;
-    industry_type: Attribute.String;
-    specialization: Attribute.String;
-    role: Attribute.String;
-    users: Attribute.Relation<
-      'api::experience.experience',
-      'manyToMany',
+    description: Attribute.String;
+    from: Attribute.String;
+    to: Attribute.String;
+    startdate: Attribute.Date;
+    returndate: Attribute.Date;
+    traveledby: Attribute.Relation<
+      'api::mytravel.mytravel',
+      'manyToOne',
       'plugin::users-permissions.user'
     >;
-    adresses: Attribute.Relation<
-      'api::experience.experience',
+    participants: Attribute.Relation<
+      'api::mytravel.mytravel',
       'manyToMany',
-      'api::adress.adress'
+      'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::experience.experience',
+      'api::mytravel.mytravel',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::experience.experience',
+      'api::mytravel.mytravel',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPincodePincode extends Schema.CollectionType {
+  collectionName: 'pincodes';
+  info: {
+    singularName: 'pincode';
+    pluralName: 'pincodes';
+    displayName: 'pincode';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    officeName: Attribute.String;
+    pincode: Attribute.Integer;
+    taluk: Attribute.String;
+    districtName: Attribute.String;
+    stateName: Attribute.String;
+    country: Attribute.String;
+    longitude: Attribute.Decimal;
+    latitude: Attribute.Decimal;
+    delivery: Attribute.String;
+    divisionName: Attribute.String;
+    circleName: Attribute.String;
+    regionName: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pincode.pincode',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pincode.pincode',
       'oneToOne',
       'admin::user'
     > &
@@ -1108,6 +1106,7 @@ export interface ApiPostPost extends Schema.CollectionType {
     singularName: 'post';
     pluralName: 'posts';
     displayName: 'post';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1127,6 +1126,21 @@ export interface ApiPostPost extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    childpost: Attribute.Relation<
+      'api::post.post',
+      'manyToOne',
+      'api::post.post'
+    >;
+    parentposts: Attribute.Relation<
+      'api::post.post',
+      'oneToMany',
+      'api::post.post'
+    >;
+    myidea: Attribute.Relation<
+      'api::post.post',
+      'manyToOne',
+      'api::myidea.myidea'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1137,76 +1151,44 @@ export interface ApiPostPost extends Schema.CollectionType {
   };
 }
 
-export interface ApiProfileProfile extends Schema.CollectionType {
-  collectionName: 'profiles';
+export interface ApiTravelTravel extends Schema.CollectionType {
+  collectionName: 'travels';
   info: {
-    singularName: 'profile';
-    pluralName: 'profiles';
-    displayName: 'profile';
+    singularName: 'travel';
+    pluralName: 'travels';
+    displayName: 'travel';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    first_name: Attribute.String;
-    last_name: Attribute.String;
-    father_name: Attribute.String;
-    mobile: Attribute.Integer;
-    dob: Attribute.Date;
-    skills: Attribute.JSON;
-    hobbies: Attribute.JSON;
-    youtubes: Attribute.JSON;
+    from: Attribute.String;
+    to: Attribute.String;
+    description: Attribute.Text;
     user: Attribute.Relation<
-      'api::profile.profile',
+      'api::travel.travel',
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    hostel_name: Attribute.String;
-    room_number: Attribute.Integer;
-    photo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    degree: Attribute.Enumeration<
-      [
-        'BE/BTECH',
-        'ME/MTECH',
-        'MSC',
-        'BSC',
-        'MBA/PGDM',
-        'BPHARMA',
-        'MPHARMA',
-        'BBALLB',
-        'BDES',
-        'BALLB',
-        'PHD',
-        'PGDIPLOMA',
-        'MPHIL'
-      ]
+    participants: Attribute.Relation<
+      'api::travel.travel',
+      'manyToMany',
+      'plugin::users-permissions.user'
     >;
-    semester: Attribute.Enumeration<
-      ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII']
-    >;
-    branch: Attribute.String;
-    userrole: Attribute.Enumeration<['STUDENT', 'GARDIAN']>;
-    ismobilevisible: Attribute.Boolean;
-    campus: Attribute.Enumeration<
-      ['GOA', 'HYDRABAD', 'MUMBAI', 'PILANI', 'DUBAI']
-    >;
-    adresses: Attribute.Relation<
-      'api::profile.profile',
-      'oneToMany',
-      'api::adress.adress'
-    >;
+    startdate: Attribute.DateTime;
+    return: Attribute.DateTime;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::profile.profile',
+      'api::travel.travel',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::profile.profile',
+      'api::travel.travel',
       'oneToOne',
       'admin::user'
     > &
@@ -1232,13 +1214,13 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::adress.adress': ApiAdressAdress;
-      'api::business.business': ApiBusinessBusiness;
+      'api::address.address': ApiAddressAddress;
       'api::category.category': ApiCategoryCategory;
-      'api::education.education': ApiEducationEducation;
-      'api::experience.experience': ApiExperienceExperience;
+      'api::myidea.myidea': ApiMyideaMyidea;
+      'api::mytravel.mytravel': ApiMytravelMytravel;
+      'api::pincode.pincode': ApiPincodePincode;
       'api::post.post': ApiPostPost;
-      'api::profile.profile': ApiProfileProfile;
+      'api::travel.travel': ApiTravelTravel;
     }
   }
 }

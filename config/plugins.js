@@ -1,4 +1,12 @@
 module.exports = ({ env }) => ({
+    'users-permission':{
+        config:{
+                ratelimit:{
+                        interval:1,
+                        max:1000000
+                }
+        }
+    },
     upload: {
       config: {
         provider: 'aws-s3',
