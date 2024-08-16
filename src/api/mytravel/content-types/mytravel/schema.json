@@ -4,7 +4,8 @@
   "info": {
     "singularName": "mytravel",
     "pluralName": "mytravels",
-    "displayName": "mytravel"
+    "displayName": "mytravel",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -37,6 +38,18 @@
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "inversedBy": "passenger"
+    },
+    "commutemode": {
+      "type": "string"
+    },
+    "copassengers": {
+      "type": "integer"
+    },
+    "weight": {
+      "type": "string"
+    },
+    "items": {
+      "type": "integer"
     }
   }
 }

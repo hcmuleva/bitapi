@@ -176,7 +176,7 @@
       "type": "string"
     },
     "mobile": {
-      "type": "integer"
+      "type": "biginteger"
     },
     "joblocation": {
       "type": "string"
